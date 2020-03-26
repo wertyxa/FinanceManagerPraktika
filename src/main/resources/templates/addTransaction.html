@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container">
+    <h1>додати транзакцію</h1>
+    <form action="/admin/addTransaction" method="post">
+        <ul class="">
+            <li>
+                <label for="category">Назва Категорії</label>
+                <select id="category" name="category">
+                    <option value="0">--</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.getName()}"
+                            th:utext="${category.getName()}"
+                    ></option>
+                </select>
+            </li>
+            <li>
+                <label>тип операції</label>
+                <input type="text" name="type">
+            </li>
+            <li>
+                <label>сума</label>
+                <input type="number" name="price">
+            <li>
+                <label>короткий опис </label>
+                <input type="text" name="description">
+            </li>
+            <li>
+                <label>Дата YYYY-MM-DD</label>
+                <input type="date" name="date">
+            </li>
+            </li>
+        </ul>
+        <br>
+
+        <input type="submit" class="btn btn-primary mb-2">
+        <input type="reset" class="btn btn-reset mb-2">
+    </form>
+
+
+
+</div>
+
+</div>
+</body>
+</html>

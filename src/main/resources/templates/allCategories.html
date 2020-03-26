@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>all Categories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container">
+    <h1>Контент сайту </h1>
+    <table border="2px" bordercolor="black">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Назва категорії</th>
+            <th>Опис</th>
+            <th>Управління</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="categoria : ${categories}">
+            <td><span th:text="${categoria.getId()}"> </span></td>
+            <td><span th:text="${categoria.getName()}"> </span></td>
+            <td><span th:text="${categoria.getDescription()}"> </span></td>
+            <td><span > <a th:href="@{'/admin/allCategory/delete/' + ${categoria.getId()}}">Delete</a><br>
+                        <a th:href="@{'/admin/allCategory/edit/' + ${categoria.getId()}}">Edit</a></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>all Categories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container">
+    <h1>Контент сайту </h1>
+    <table border="2px" bordercolor="black">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Категорія</th>
+            <th>Тип Операції</th>
+            <th>Сума</th>
+            <th>Дата</th>
+            <th>Опис</th>
+            <th>Управління</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trans : ${transactions}">
+            <td><span th:text="${trans.getId()}"> </span></td>
+            <td><span th:text="${trans.getCategory()}"> </span></td>
+            <td><span th:text="${trans.getTypeTransaction()}"> </span></td>
+            <td><span th:text="${trans.getPrice()}"> </span></td>
+            <td><span th:text="${trans.getDate()}"> </span></td>
+            <td><span th:text="${trans.getDescription()}"> </span></td>
+            <td><span > <a th:href="@{'/admin/allTransaction/delete/' + ${trans.getId()}}">Delete</a><br>
+                        <a th:href="@{'/admin/allTransaction/edit/' + ${trans.getId()}}">Edit</a></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</body>
+</html>

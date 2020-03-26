@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>edit category</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container">
+    <h1>Редагувати категорію </h1>
+    <div th:each="cat : ${categoris}">
+        <form method="post">
+            <label >Назва категорії</label>
+            <input th:value="${cat.name}" type="text"  name="name" ><br>
+            <label>Опис категорії</label>
+            <input th:value="${cat.description}" type="text" name="description" class="form-control"><br>
+            <button type="submit"  class="btn btn-primary mb-2" value="update">Update</button>
+        </form>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

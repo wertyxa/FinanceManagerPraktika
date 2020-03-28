@@ -19,11 +19,11 @@
         .nav-link{
             font-size: 1.2em !important;
         }
-        .btn{
-            width: 60px !important;
-        }
         li{
             list-style-type: none;
+        }
+        .mb-2{
+            width: 75px !important;
         }
     </style>
 
@@ -48,12 +48,13 @@
             <td><span th:text="${categoria.getId()}"> </span></td>
             <td><span th:text="${categoria.getName()}"> </span></td>
             <td><span th:text="${categoria.getDescription()}"> </span></td>
-            <td><span ><a class="btn btn-danger mb-2" th:href="@{'/admin/Category/delete/' + ${categoria.getId()}}">Delete</a>
+            <td><span ><a class="btn btn-danger mb-2" th:href="@{'/admin/allCategory/' + ${categoria.getId()}+'/delete/'}">Delete</a>
                             <br>
-                        <a class="btn btn-warning mb-2" th:href="@{'/admin/allCategory/edit/' + ${categoria.getId()}}">Edit</a></span></td>
+                        <a class="btn btn-warning mb-2" th:href="@{'/admin/allCategory/' + ${categoria.getId()}+'/edit/'}">Edit</a></span></td>
         </tr>
         </tbody>
     </table>
+    <a href="/admin/addCategory" class="btn btn-primary btn-lg" align="right">Додабавити Категорію</a>
 </div>
 
 </div>

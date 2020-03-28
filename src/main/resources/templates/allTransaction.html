@@ -19,11 +19,12 @@
         .nav-link{
             font-size: 1.2em !important;
         }
-        .btn{
-            width: 60px !important;
-        }
+
         li{
             list-style-type: none;
+        }
+        .mb-2{
+            width: 75px !important;
         }
     </style>
 
@@ -55,12 +56,15 @@
             <td><span th:text="${trans.getPrice()}"> </span></td>
             <td><span th:text="${trans.getDate()}"> </span></td>
             <td><span th:text="${trans.getDescription()}"> </span></td>
-            <td><span > <a class="btn btn-danger mb-2" th:href="@{'/admin/allTransaction/delete/' + ${trans.getId()}}">Delete</a>
+            <td><span > <a class="btn btn-danger mb-2" th:href="@{'/admin/allTransaction/' + ${trans.id}+'/delete/'}">Delete</a>
                             <br>
-                        <a class="btn btn-warning mb-2" th:href="@{'/admin/allTransaction/edit/' + ${trans.getId()}}">Edit</a></span></td>
+                        <a class="btn btn-warning mb-2" th:href="@{'/admin/allTransaction/' + ${trans.id}+'/edit/'}">Edit</a></span></td>
         </tr>
         </tbody>
+
     </table>
+    <a href="/admin/addTransaction" class="btn btn-primary btn-lg" align="right">Додабавити Транзакцію</a>
+
 </div>
 </div>
 </body>

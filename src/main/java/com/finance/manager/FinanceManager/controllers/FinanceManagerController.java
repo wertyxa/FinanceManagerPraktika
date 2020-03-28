@@ -84,18 +84,18 @@ public class FinanceManagerController {
         return "allCategories";
     }
 
-    @GetMapping("/admin/allTransaction/delete/{id}")
+    @GetMapping("/admin/allTransaction/{id}/delete/")
     public String deleteTransaction(@PathVariable(value = "id") long id, Model model){
         transactionRepository.deleteById(id);
         return "redirect:/admin/allTransaction";
     }
-    @GetMapping("/admin/allCategory/delete/{id}")
+    @GetMapping("/admin/allCategory/{id}/delete/")
     public String deleteCategory(@PathVariable(value = "id") long id, Model model){
         categoryRepository.deleteById(id);
         return "redirect:/admin/allCategory";
     }
     //Edit Category
-    @GetMapping("/admin/allCategory/edit/{id}")
+    @GetMapping("/admin/allCategory/{id}/edit/")
     public String editCategory(@PathVariable(value = "id") long id,
                                Model model) throws Exception {
         Optional<Category> category = categoryRepository.findById(id);
@@ -105,7 +105,7 @@ public class FinanceManagerController {
 
         return "editCategory";
     }
-    @PostMapping("/admin/allCategory/edit/{id}")
+    @PostMapping("/admin/allCategory/{id}/edit/")
     public String editCategory(@PathVariable(value = "id") long id,
                                @RequestParam String name,
                                @RequestParam String description,
@@ -119,7 +119,7 @@ public class FinanceManagerController {
 
 //Edit Transaction
 
-    @GetMapping("/admin/allTransaction/edit/{id}")
+    @GetMapping("/admin/allTransaction/{id}/edit/")
     public String editTransaction(@PathVariable(value = "id") long id,
                                Model model) throws Exception {
         Optional<Transaction> transaction = transactionRepository.findById(id);
@@ -132,7 +132,7 @@ public class FinanceManagerController {
         return "editTransaction";
     }
 
-    @PostMapping("/admin/allTransaction/edit/{id}")
+    @PostMapping("/admin/allTransaction/{id}/edit/")
     public String editTransaction(@PathVariable(value = "id") long id,
                                   @RequestParam String category,
                                   @RequestParam String type,

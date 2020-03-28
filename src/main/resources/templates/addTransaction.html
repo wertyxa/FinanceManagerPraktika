@@ -3,18 +3,42 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
+    <style type="text/css">
+        .navbar-brand img {
+            width: 50px;
+            height: 50px;
+        }
+        .navbar-nav li{
+            padding-right: 20px;
+        }
+        .nav-link{
+            font-size: 1.2em !important;
+        }
+
+        li{
+            list-style-type: none;
+        }
+
+
+    </style>
+</head>
 <body>
-<header th:insert="blocks/header :: header"></header>
+<header th:insert="header :: header"></header>
 
 
-<div class="container">
+<div class="jumbotron container">
     <h1>додати транзакцію</h1>
     <form action="/admin/addTransaction" method="post">
         <ul class="">
             <li>
                 <label for="category">Назва Категорії</label>
-                <select id="category" name="category">
+                <select id="category" name="category" class="form-control">
                     <option value="0">--</option>
                     <option th:each="category : ${categories}"
                             th:value="${category.getName()}"
@@ -24,25 +48,27 @@
             </li>
             <li>
                 <label>тип операції</label>
-                <input type="text" name="type">
+                <input type="text" name="type"  class="form-control">
             </li>
             <li>
-                <label>сума</label>
-                <input type="number" name="price">
+                <label for="price">сума</label>
+                <input type="number" name="price" id="price" class="form-control">
             <li>
-                <label>короткий опис </label>
-                <input type="text" name="description">
+                <label for="description">короткий опис </label>
+                <input type="text" name="description" id="description" class="form-control">
             </li>
             <li>
-                <label>Дата YYYY-MM-DD</label>
-                <input type="date" name="date">
+                <label for="data">Дата YYYY-MM-DD</label>
+                <input type="date" name="date" id="data" class="form-control">
+            </li>
+            <li>
+                <input type="submit"  class="btn btn-outline-success mt-2 mr=2 form-control" value="send">
+                <input type="reset"  class="btn btn-outline-warning mt-2 mr-2 form-control" value="reset">
             </li>
             </li>
         </ul>
         <br>
 
-        <input type="submit" class="btn btn-primary mb-2">
-        <input type="reset" class="btn btn-reset mb-2">
     </form>
 
 

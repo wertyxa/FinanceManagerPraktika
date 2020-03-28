@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class FinanceManagerController {
                                      @RequestParam Integer price,
                                      @RequestParam String description,
                                      @RequestParam String date,
-                                     Model model){
+                                     Model model) throws ParseException {
         System.out.println(category);
         System.out.println(type);
         System.out.println(price);

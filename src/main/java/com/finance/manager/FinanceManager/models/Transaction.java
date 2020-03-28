@@ -22,7 +22,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String category, String typeTransaction, Integer price, String description, String date) {
+    public Transaction(String category, String typeTransaction, Integer price, String description, String date) throws ParseException {
         this.category = category;
         this.typeTransaction = typeTransaction;
         this.price = price;
@@ -71,7 +71,7 @@ public class Transaction {
         this.date = date;
     }
 
-    public void setDateString(String dateString) {
+    public void setDateString(String dateString) throws ParseException {
         Date date;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {

@@ -1,5 +1,6 @@
 package com.finance.manager.FinanceManager.controllers;
 
+import com.finance.manager.FinanceManager.ReadWriteExelData.ExelData;
 import com.finance.manager.FinanceManager.models.Category;
 import com.finance.manager.FinanceManager.models.Transaction;
 import com.finance.manager.FinanceManager.repository.CategoryRepository;
@@ -7,11 +8,14 @@ import com.finance.manager.FinanceManager.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,10 +74,13 @@ public class FinanceManagerController {
     }
 
     @GetMapping("/admin/allTransaction")
-    public String allTransaction(Model model){
+    public String allTransaction(Model model) throws IOException {
         Iterable<Transaction> transactions = transactionRepository.findAll();
         model.addAttribute("transactions",transactions);
-
+        //1 param - array Transaction
+        //2 param - absolute path: C:/folder/
+        //3 param - the file name without its extension: workbook
+       // ExelData.importDataToExelFile(transactions, "C:/Finance/","All Transactions");
         return "allTransaction";
     }
 
@@ -150,4 +157,5 @@ public class FinanceManagerController {
 
         return "redirect:/admin/allTransaction";
     }
+    
 }

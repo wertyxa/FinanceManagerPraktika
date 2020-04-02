@@ -74,12 +74,9 @@ public class Transaction {
     public void setDateString(String dateString) throws ParseException {
         Date date;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
             date = format.parse(dateString);
             setDate(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public String getDateString() {

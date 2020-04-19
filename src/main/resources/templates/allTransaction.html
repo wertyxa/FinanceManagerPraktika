@@ -66,8 +66,11 @@
         <a href="/admin/addTransaction" class="btn btn-primary btn-lg" align="right">Додати Транзакцію</a>
         <a href="/admin/allTransaction/exelDownload" class="btn btn-primary btn-lg" align="right">Завантажити в Exel</a>
 
-    </form>
-
+        <form action="/admin/allTransaction/exelUpload" method="post" enctype="multipart/form-data">
+            <label for="file">виберіть файл</label>
+            <input type="file" name="file" id="file">
+            <button type="submit" class="btn btn-primary btn-lg" align="right">Надіслати в Exel</button>
+        </form>
     </div>
 </div>
 </div>

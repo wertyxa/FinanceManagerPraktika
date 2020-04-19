@@ -6,23 +6,32 @@ import com.finance.manager.FinanceManager.models.Transaction;
 import com.finance.manager.FinanceManager.repository.CategoryRepository;
 import com.finance.manager.FinanceManager.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class FinanceManagerController {
+
+
+    @Value("${upload.path}")
+    private String uploadPath;
+
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -45,14 +54,14 @@ public class FinanceManagerController {
         Category category = new Category(name,description);
         categoryRepository.save(category);
 
-        return "addCategory";
+        return "redirect:/addCategory";
 
     }
     @GetMapping("/admin/addTransaction")
     public String addTransactionView(Model model){
         Iterable<Category> categories = categoryRepository.findAll();
         model.addAttribute("categories", categories);
-        return "addTransaction";
+        return "redirect:/addTransaction";
     }
     @PostMapping("admin/addTransaction")
     public String addTransactionForm(@RequestParam String category,
@@ -83,6 +92,55 @@ public class FinanceManagerController {
        // ExelData.importDataToExelFile(transactions, "C:/Finance/","All Transactions");
         return "allTransaction";
     }
+
+
+    @RequestMapping("/admin/allTransaction/exelDownload")
+    public void downloadExelResource(HttpServletRequest request, HttpServletResponse response
+    ) throws IOException {
+
+        File file = ExelData.importDataToExelFile(transactionRepository.findAll());
+
+        if (file.exists()) {
+
+            //get the mimetype
+            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+            System.out.println(mimeType);
+            if (mimeType == null) {
+                //unknown mimetype so set the mimetype to application/octet-stream
+                mimeType = "application/octet-stream";
+                System.out.println(mimeType);
+
+            }
+
+            response.setContentType(mimeType);
+
+            /**
+             * In a regular HTTP response, the Content-Disposition response header is a
+             * header indicating if the content is expected to be displayed inline in the
+             * browser, that is, as a Web page or as part of a Web page, or as an
+             * attachment, that is downloaded and saved locally.
+             *
+             */
+
+            /**
+             * Here we have mentioned it to show inline
+             */
+            response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() + "\""));
+
+            //Here we have mentioned it to show as attachment
+            // response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + file.getName() + "\""));
+
+            response.setContentLength((int) file.length());
+
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+            FileCopyUtils.copy(inputStream, response.getOutputStream());
+            file.delete();
+        }else {
+            System.out.println(file.getPath());
+        }
+    }
+
 
     @GetMapping("/admin/allCategory")
     public String allCategories(Model model){
@@ -155,6 +213,21 @@ public class FinanceManagerController {
                 transaction.setDateString(date);
         transactionRepository.save(transaction);
 
+        return "redirect:/admin/allTransaction";
+    }
+
+    @PostMapping("/admin/allTransaction/exelUpload")
+    public String uploadFile(Model model,
+                             @RequestParam MultipartFile file) throws IOException {
+        if (file != null && !file.getOriginalFilename().isEmpty()){
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath+"/"+resultFileName));
+        }
         return "redirect:/admin/allTransaction";
     }
     

@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,7 +15,11 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class ExelData {
+    @Value("${upload.path}")
+    private static String uploadPath;
+
     public static File importDataToExelFile(Iterable<Transaction> transactions) throws IOException {
+
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("AllTransaction");
@@ -52,7 +57,7 @@ public class ExelData {
             rowCounter++;
         }
         UUID uuid = UUID.randomUUID();
-        File file = new File(uuid+".xlsx");
+        File file = new File(uploadPath+ "/"+uuid+".xlsx");
         FileOutputStream outputStream = new FileOutputStream(file);
         workbook.write(outputStream);
         outputStream.close();
